@@ -341,6 +341,4 @@ class ShowOff < Sinatra::Application
     end
   end
 
-
-
 end
