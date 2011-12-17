@@ -166,8 +166,11 @@ class ShowOff < Sinatra::Application
         #end
         sl = Tilt[:markdown].new { slide.text }.render
         sl = update_image_paths(name, sl, static, pdf)
-        sl = sl.sub("<h1>", "<header><h2>")
-        sl = sl.sub("</h1>", "</h2></header>")
+        sl = sl.sub(/<h1>(.*?)<\/h1>/m) { |s|
+          src = $1
+          src = src.gsub(/\\n/m, '<br/>')
+          src = '<header><h2>' + src + '</h2></header>'
+        }
         sl = sl.gsub(/<code>(.*?)<\/code>/m) { |s|
           src = $1
           src = src.gsub(/\n/m, '</code><code>')
