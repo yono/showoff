@@ -138,15 +138,16 @@ class ShowOff < Sinatra::Application
       if slides.size > 1
         seq = 1
       end
+
+      idno = 1
       slides.each do |slide|
         md = ''
         content_classes = slide.classes
-
         # extract transition, defaulting to none
         transition = 'none'
         content_classes.delete_if { |x| x =~ /^transition=(.+)/ && transition = $1 }
         # extract id, defaulting to none
-        id = nil
+        id = "slide" + idno.to_s
         content_classes.delete_if { |x| x =~ /^#([\w-]+)/ && id = $1 }
         @logger.debug "id: #{id}" if id
         @logger.debug "classes: #{content_classes.inspect}"
@@ -154,20 +155,32 @@ class ShowOff < Sinatra::Application
         # create html
         md += "<div"
         md += " id=\"#{id}\"" if id
-        md += " class=\"slide\" data-transition=\"#{transition}\">"
-        if seq
-          md += "<div class=\"#{content_classes.join(' ')}\" ref=\"#{name}/#{seq.to_s}\">\n"
-          seq += 1
-        else
-          md += "<div class=\"#{content_classes.join(' ')}\" ref=\"#{name}\">\n"
-        end
+        md += " class=\"slide #{content_classes.join(' ')}\" data-transition=\"#{transition}\">\n"
+        md += "<div>\n"
+        md += "<section>\n"
+        #if seq
+        #  md += "<div class=\"#{content_classes.join(' ')}\" ref=\"#{name}/#{seq.to_s}\">\n"
+        #  seq += 1
+        #else
+        #  md += "<div class=\"#{content_classes.join(' ')}\" ref=\"#{name}\">\n"
+        #end
         sl = Tilt[:markdown].new { slide.text }.render
         sl = update_image_paths(name, sl, static, pdf)
+        sl = sl.sub("<h1>", "<header><h2>")
+        sl = sl.sub("</h1>", "</h2></header>")
+        sl = sl.gsub(/<code>(.*?)<\/code>/m) { |s|
+          src = $1
+          src = src.gsub(/\n/m, '</code><code>')
+          src = '<code>' + src + '</code>'
+          src = src.gsub('<code></code>', '')
+        }
         md += sl
+        md += "\n</section>\n"
         md += "</div>\n"
         md += "</div>\n"
         final += update_commandline_code(md)
         final = update_p_classes(final)
+        idno += 1
       end
       final
     end
@@ -316,11 +329,11 @@ class ShowOff < Sinatra::Application
     end
 
     def index(static=false)
-      if static
+      #if static
         @title = ShowOffUtils.showoff_title
         @slides = get_slides_html(static)
         @asset_path = "./"
-      end
+      #end
       erb :index
     end
 
