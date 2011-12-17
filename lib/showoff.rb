@@ -177,6 +177,12 @@ class ShowOff < Sinatra::Application
           src = '<code>' + src + '</code>'
           src = src.gsub('<code></code>', '')
         }
+        if (content_classes.find {|i| i == 'center'} ) then
+          sl = sl.sub(/<img (.*?)>/m) { |s|
+            src = $1
+            src = '<img ' + src + ' class="middle"/>'
+          }
+        end
         md += sl
         md += "\n</section>\n"
         md += "</div>\n"
