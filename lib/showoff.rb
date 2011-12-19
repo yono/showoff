@@ -171,13 +171,12 @@ class ShowOff < Sinatra::Application
           src = src.gsub(/\\n/m, '<br/>')
           src = '<header><h2>' + src + '</h2></header>'
         }
-        #sl = sl.gsub(/<code>(.*?)<\/code>/m) { |s|
-        #  src = $1
-        #  src = src.gsub(/\n/m, '</code><code>')
-        #  src = '<code>' + src + '</code>'
-        #  src = src.gsub('<code></code>', '')
-        #}
-        #sl = sl.gsub(/<pre>/, "<pre class='brush: python;'>")
+        sl = sl.gsub(/<code>(.*?)<\/code>/m) { |s|
+          src = $1
+          src = src.gsub(/\n/m, '</code><code>')
+          src = '<code>' + src + '</code>'
+          src = src.gsub('<code></code>', '')
+        }
         if (content_classes.find {|i| i == 'center'} ) then
           sl = sl.sub(/<img (.*?)>/m) { |s|
             src = $1
