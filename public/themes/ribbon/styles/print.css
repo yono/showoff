@@ -1,0 +1,54 @@
+@page {
+    margin:0;
+    size: 600px 376px;
+    }
+
+.slide.shout H2 {
+    top: 50%;
+    }
+
+/* List
+---------------------------------------- */
+.list {
+    float:none;
+    padding:0;
+    background:#FFF;
+    }
+
+/* Caption */
+.list .caption {
+    display:none;
+    }
+
+/* Slide */
+.list .slide {
+    float:none;
+    margin:0;
+    padding:0;
+    }
+    .list .slide > DIV {
+        width:1024px;
+        height:640px;
+        background:none;
+        }
+    .list .slide > DIV,
+    .list .slide > DIV:hover {
+        -webkit-box-shadow:none;
+        -moz-box-shadow:none;
+        box-shadow:none;
+        }
+    .list .slide SECTION {
+        -webkit-transform:none;
+        -moz-transform:none;
+        -ms-transform:none;
+        -o-transform:none;
+        transform:none;
+        }
+        .list .slide:after {
+            position:absolute;
+            bottom:85px;
+            left:120px;
+            color:#BBB;
+            line-height:1;
+            text-shadow:none;
+            }
