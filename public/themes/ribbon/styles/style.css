@@ -31,7 +31,7 @@ BODY {
 		right:120px;
 		width:40px;
 		height:120px;
-		background:url(themes/ribbon/images/ribbon.svg) no-repeat;
+		background:url(../images/ribbon.svg) no-repeat;
 		content:'';
 		}
 
@@ -176,7 +176,7 @@ BODY {
 		color:#BBB;
 		text-align:right;
 		counter-increment:code;
-		content:counter(code, decimal-leading-zero)'.';
+		/*content:counter(code, decimal-leading-zero)'.';*/
 		}
 	.slide PRE MARK {
 		padding:3px 8px;

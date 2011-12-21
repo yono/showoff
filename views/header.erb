@@ -3,3 +3,9 @@
   <meta name="viewport" content="width=1274, user-scalable=no"/>
   <link rel="stylesheet" href="<%= @asset_path %>themes/ribbon/styles/style.css">
   <link rel="stylesheet" href="<%= @asset_path %>themes/ribbon/styles/print.css" media="print">
+  <link rel="stylesheet" href="<%= @asset_path %>highlight/styles/github.css">
+  <script src="<%= @asset_path %>highlight/highlight.pack.js"></script>
+  <script>
+    hljs.tabReplace = '    ';
+    hljs.initHighlightingOnLoad();
+  </script>
